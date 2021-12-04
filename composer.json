@@ -29,7 +29,7 @@
     },
     "autoload": {
         "psr-4": {
-            "SiberFx\\Leafletjs\\": "src"
+            "SiberFx\\Leafletjs": "src"
         }
     },
     "autoload-dev": {
