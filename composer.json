@@ -1,0 +1,49 @@
+{
+    "name": "siberfx/leafletjs",
+    "description": "Leafletjs for Laravel Backpack ^4.1",
+    "keywords": [
+        "laravel 8.x",
+        "laravel 9.x",
+        "backpack",
+        "leafletjs",
+        "leafjs",
+        "openstreetmaps",
+        "mapbox"
+    ],
+    "homepage": "https://github.com/siberfx/leafletjs",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Selim Gormus",
+            "email": "info@siberfx.com",
+            "role": "Fullstack Php Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0|^8.1",
+        "illuminate/support": "^8.0|^9.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "SiberFx\\Leafletjs\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LeafletBackpackServiceProvider"
+            ]
+        }
+    }
+}
