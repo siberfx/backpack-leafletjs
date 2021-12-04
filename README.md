@@ -1,7 +1,6 @@
 # Leafletjs Implementation for Laravel Backpack ^4.1
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/siberfx/leafletjs.svg?style=flat-square)](https://packagist.org/packages/siberfx/leafletjs)
-[![Total Downloads](https://img.shields.io/packagist/dt/siberfx/leafletjs.svg?style=flat-square)](https://packagist.org/packages/siberfx/leafletjs)
+[![Latest Version on Packagist](https://img.shields.io/packagist/dt/siberfx/leafletjs?style=plastic)](https://packagist.org/packages/siberfx/leafletjs)
 
 ## Installation
 
