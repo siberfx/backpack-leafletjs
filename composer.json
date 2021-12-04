@@ -15,7 +15,7 @@
     "type": "library",
     "authors": [
         {
-            "name": "Selim Gormus",
+            "name": "Selim Görmüş",
             "email": "info@siberfx.com",
             "role": "Fullstack Php Developer"
         }
@@ -24,19 +24,8 @@
         "php": "^7.4|^8.0|^8.1",
         "illuminate/support": "^8.0|^9.0"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^9.4"
-    },
-    "autoload": {
-        "psr-4": {
-            "SiberFx\\Leafletjs\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-        }
-    },
-    "config": {
+  "minimum-stability": "dev",
+  "config": {
         "sort-packages": true
     },
     "extra": {
@@ -45,5 +34,10 @@
                 "Siberfx\\Leafletjs\\LeafletBackpackServiceProvider"
             ]
         }
+    },
+  "autoload": {
+    "psr-4": {
+      "SiberFx\\Leafletjs\\": "src/"
     }
+  }
 }
