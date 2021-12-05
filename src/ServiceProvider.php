@@ -17,8 +17,6 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function boot()
     {
-        $this->setupRoutes($this->app->router);
-
         if ($this->app->runningInConsole()) {
             // publish the migrations and seeds
 
@@ -26,18 +24,6 @@ class ServiceProvider extends IlluminateServiceProvider
         }
 
         Blade::component('leafjs', Leafjs::class);
-    }
-
-    public function setupRoutes(Router $router)
-    {
-        // by default, use the routes file provided in vendor
-        $routeFilePathInUse = __DIR__ . $this->routeFilePath;
-
-        // but if there's a file with the same name in routes/backpack, use that one
-        if (file_exists(base_path() . $this->routeFilePath)) {
-            $routeFilePathInUse = base_path() . $this->routeFilePath;
-        }
-        $this->loadRoutesFrom($routeFilePathInUse);
     }
 
     private function publish()
