@@ -31,7 +31,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Siberfx\\BackpackLeafletjs\\LeafletBackpackServiceProvider"
+                "Siberfx\\BackpackLeafletjs\\ServiceProvider"
             ]
         }
     },

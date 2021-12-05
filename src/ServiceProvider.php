@@ -3,11 +3,11 @@
 namespace Siberfx\BackpackLeafletjs;
 
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use Illuminate\Routing\Router;
 use Siberfx\Leafletjs\View\Components\Leafjs;
 
-class LeafletBackpackServiceProvider extends ServiceProvider
+class ServiceProvider extends IlluminateServiceProvider
 {
 
     public $routeFilePath = '/routes/leaflet.php';
