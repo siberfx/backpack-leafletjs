@@ -1,13 +1,13 @@
 # Leafletjs Implementation for Laravel Backpack ^4.1
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/dt/siberfx/leafletjs?style=plastic)](https://packagist.org/packages/siberfx/leafletjs)
+[![Latest Version on Packagist](https://img.shields.io/packagist/dt/siberfx/backpack-leafletjs?style=plastic)](https://packagist.org/packages/siberfx/leafletjs)
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require siberfx/leafletjs
+composer require siberfx/backpack-leafletjs
 ```
 
 ## Usage
