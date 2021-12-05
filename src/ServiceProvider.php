@@ -30,14 +30,14 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $crud_views = [
             // Crud Stuff
-            __DIR__.'/resources/views' => resource_path('views'),
+            __DIR__ . '/resources/views' => resource_path('views'),
         ];
 
 
         $crud_assets = [
             // Public Stuff
-            __DIR__ . '/../../public/css' => public_path('packages/leafletjs/css'),
-            __DIR__ . '/../../public/js' => public_path('packages/leafletjs/js'),
+            __DIR__ . '/public/css' => public_path('packages/leafletjs/css'),
+            __DIR__ . '/public/js' => public_path('packages/leafletjs/js'),
         ];
 
         $crud_config = [
@@ -49,7 +49,6 @@ class ServiceProvider extends IlluminateServiceProvider
         $this->publishes($crud_assets, 'public');
         $this->publishes($crud_config, 'config');
         $this->publishes($crud_views, 'views');
-
     }
 
     /**
@@ -57,6 +56,5 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
-
     }
 }
