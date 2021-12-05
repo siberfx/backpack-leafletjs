@@ -10,8 +10,6 @@ use Siberfx\Leafletjs\View\Components\Leafjs;
 class ServiceProvider extends IlluminateServiceProvider
 {
 
-    public $routeFilePath = '/routes/leaflet.php';
-
     protected $defer = false;
 
     /**
