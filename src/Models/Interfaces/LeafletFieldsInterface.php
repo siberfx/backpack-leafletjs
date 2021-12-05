@@ -1,6 +1,6 @@
 <?php
 
-namespace Siberfx\Leafletjs\Models\Interfaces;
+namespace Siberfx\BackpackLeafletjs\Models\Interfaces;
 
 interface LerafletjsInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Siberfx\Leafletjs\View\Components;
+namespace Siberfx\BackpackLeafletjs\View\Components;
 
 use Illuminate\Support\Str;
 use Illuminate\View\Component;

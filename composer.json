@@ -1,5 +1,5 @@
 {
-    "name": "siberfx/leafletjs",
+    "name": "siberfx/backpack-leafletjs",
     "description": "Leafletjs for Laravel Backpack ^4.1",
     "keywords": [
         "laravel 8.x",
@@ -10,7 +10,7 @@
         "openstreetmaps",
         "mapbox"
     ],
-    "homepage": "https://github.com/siberfx/leafletjs",
+    "homepage": "https://github.com/siberfx/backpack-leafletjs",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -31,13 +31,13 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Siberfx\\Leafletjs\\LeafletBackpackServiceProvider"
+                "Siberfx\\BackpackLeafletjs\\LeafletBackpackServiceProvider"
             ]
         }
     },
   "autoload": {
     "psr-4": {
-      "SiberFx\\Leafletjs\\": "src/"
+      "SiberFx\\BackpackLeafletjs\\": "src/"
     }
   }
 }

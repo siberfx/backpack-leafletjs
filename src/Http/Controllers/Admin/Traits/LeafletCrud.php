@@ -1,6 +1,6 @@
 <?php
 
-namespace Siberfx\Leafletjs\Http\Controllers\Admin\Traits;
+namespace Siberfx\BackpackLeafletjs\Http\Controllers\Admin\Traits;
 
 use Backpack\CRUD\CrudPanel;
 

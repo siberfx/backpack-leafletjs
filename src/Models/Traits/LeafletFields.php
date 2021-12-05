@@ -1,6 +1,6 @@
 <?php
 
-namespace Siberfx\Leafletjs\Models\Traits;
+namespace Siberfx\BackpackLeafletjs\Models\Traits;
 
 trait LeafletFields
 {
