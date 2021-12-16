@@ -16,7 +16,7 @@ composer require siberfx/backpack-leafletjs
 ## Usage
 
 ``` php
-// Add SeoCrud to your Backpack Crud Controller
+// Add LeafletFields trait to your Backpack Crud Controller
 use LeafletFields;
 
 // and call if your using App\Model\Settings model as your instance:
@@ -26,7 +26,7 @@ $this->setLeafletFields();
 ```
 
 ``` php
-// Add SeoFields to your model
+// Add LeafletFields to your model
 use LeafletFields;
 ```
 or  add in your Crud controller manually where you want to see it as shown below. 
