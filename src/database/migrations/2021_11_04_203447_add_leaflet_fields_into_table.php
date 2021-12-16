@@ -15,7 +15,6 @@ class AddLeafletFieldsTable extends Migration
     public function up()
     {
         Schema::table(config('backpack.leaflet.table_name'), function (Blueprint $table) {
-            $table->string(\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_ADDRESS)->nullable();
             $table->string(\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LONGITUDE)->nullable();
             $table->string(\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LATITUDE)->nullable();
         });
@@ -29,7 +28,6 @@ class AddLeafletFieldsTable extends Migration
     public function down()
     {
         Schema::table(config('backpack.leaflet.table_name'), function (Blueprint $table) {
-            $table->dropColumn(\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_ADDRESS);
             $table->dropColumn(\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LONGITUDE);
             $table->dropColumn(\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LATITUDE);
         });

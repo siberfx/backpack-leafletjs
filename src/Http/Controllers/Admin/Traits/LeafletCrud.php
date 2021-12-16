@@ -14,14 +14,6 @@ trait LeafletCrud
 {
     protected function setSeoFields(array $extras = [])
     {
-        $model = $this->crud->getModel();
-
-        abort_if(
-            empty($model->leafletFields) || !is_array($model->leafletFields),
-            500,
-            sprintf('Your model %s need to use LeafletFields trait or contain $leafletFields array', get_class($model))
-        );
-
 
         $this->crud->addField([
             'name' => 'leafjs-mapId',
@@ -33,18 +25,5 @@ trait LeafletCrud
             ],
             'hint' => '<em>You can also drag and adjust your mark by clicking</em>'
         ]);
-
-        foreach ($model->leafletFields as $fieldName => $fieldAttribute) {
-            $this->crud->addField(
-                array_merge(
-                    [
-                        'name' => $fieldName,
-                        'type'  => 'text',
-                    ],
-                    $extras,
-                    $fieldAttribute
-                )
-            );
-        }
     }
 }
