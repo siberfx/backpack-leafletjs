@@ -55,8 +55,8 @@ Add fields in `$fillable` array if you want to save
 
 To set missing fields on your table :
 ```php
-Leaflet::setTitle($youModel->{\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LONGITUDE});
-Leaflet::setTitle($youModel->{\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LATITUDE});
+\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LONGITUDE;
+\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LATITUDE;
 ```
 
 ### Security
