@@ -46,14 +46,14 @@ or  add in your Crud controller manually where you want to see it as shown below
 ```
 
 
-You can override SEO fields with override `$seoFields`
+You can override in which table are located your "lat, lng" fields via config/leafjs.php file and "table_name" field if its set already
 
 To create database you can use migration : 
 `php artisan vendor:publish --provider="Siberfx\Leafletjs\LeafletBackpackServiceProvider"`
 
 Add fields in `$fillable` array if you want to save
 
-To set SEO Meta tags :
+To set missing fields on your table :
 ```php
 Leaflet::setTitle($youModel->{\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LONGITUDE});
 Leaflet::setTitle($youModel->{\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LATITUDE});
