@@ -35,7 +35,7 @@ or  add in your Crud controller manually where you want to see it as shown below
  $this->crud->addField([
                 'name' => 'leafjs-mapId', // this is not a name of field in database.
                 'type' => 'leafjs',
-                'model' => Numen::class,
+                'model' => Model::class,
                 'options' => [
                     'provider' => 'mapbox',  // default algolia map provider
                     'marker_image' => null   // optional
