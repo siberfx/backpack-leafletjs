@@ -19,13 +19,19 @@ trait LeafletCrud
         abort_if(
             empty($model->leafletFields) || !is_array($model->leafletFields),
             500,
-            sprintf('Your model %s need to use LeafletFields trait or contain $leafletFields array', get_class($model)));
+            sprintf('Your model %s need to use LeafletFields trait or contain $leafletFields array', get_class($model))
+        );
 
 
         $this->crud->addField([
-            'name'  => 'map_leafletjs',
-            'type'  => 'custom_view',
-            'value' => '<br><h2>MAP</h2><hr>'
+            'name' => 'leafjs-mapId',
+            'type' => 'leafjs',
+            'model' => Numen::class,
+            'options' => [
+                'provider' => 'mapbox',  // default algolia map provider
+                'marker_image' => null   // optional
+            ],
+            'hint' => '<em>You can also drag and adjust your mark by clicking</em>'
         ]);
 
         foreach ($model->leafletFields as $fieldName => $fieldAttribute) {

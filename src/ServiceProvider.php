@@ -2,7 +2,6 @@
 
 namespace Siberfx\BackpackLeafletjs;
 
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use Illuminate\Routing\Router;
 use Siberfx\Leafletjs\View\Components\Leafjs;
@@ -22,8 +21,6 @@ class ServiceProvider extends IlluminateServiceProvider
 
             $this->publish();
         }
-
-        Blade::component('leafjs', Leafjs::class);
     }
 
     private function publish()
@@ -36,8 +33,8 @@ class ServiceProvider extends IlluminateServiceProvider
 
         $crud_assets = [
             // Public Stuff
-            __DIR__ . '/public/css' => public_path('packages/leafletjs/css'),
-            __DIR__ . '/public/js' => public_path('packages/leafletjs/js'),
+            __DIR__ . '/public/css' => public_path('css'),
+            __DIR__ . '/public/js' => public_path('js'),
         ];
 
         $crud_config = [
