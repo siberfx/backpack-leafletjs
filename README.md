@@ -55,7 +55,6 @@ Add fields in `$fillable` array if you want to save
 
 To set SEO Meta tags :
 ```php
-Leaflet::setTitle($youModel->{\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_ADDRESS});
 Leaflet::setTitle($youModel->{\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LONGITUDE});
 Leaflet::setTitle($youModel->{\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LATITUDE});
 ```
