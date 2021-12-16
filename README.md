@@ -1,9 +1,11 @@
 ## <p align="center">Leafletjs Implementation for Laravel Backpack ^4.1</p>
 
-<p align="center"><img src="https://github.com/siberfx/backpack-leafletjs/raw/main/img/preview.png"></p>
+<p align="center">
+ <img src="https://github.com/siberfx/backpack-leafletjs/raw/main/img/preview.png">
+</p>
 
-
-[![Latest Version on Packagist](https://img.shields.io/packagist/dt/siberfx/backpack-leafletjs?style=plastic)](https://packagist.org/packages/siberfx/backpack-leafletjs)
+<img alt="Stars" src="https://img.shields.io/github/stars/siberfx/backpack-leafjs?style=plastic&labelColor=343b41"/> <img alt="Forks" src="https://img.shields.io/github/forks/siberfx/backpack-leafjs?style=plastic&labelColor=343b41"/>
+ [![Latest Version on Packagist](https://img.shields.io/packagist/dt/siberfx/backpack-leafletjs?style=plastic)](https://packagist.org/packages/siberfx/backpack-leafletjs)
 
 ## Installation
 
