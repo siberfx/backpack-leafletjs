@@ -19,7 +19,7 @@ composer require siberfx/backpack-leafletjs
 // Add SeoCrud to your Backpack Crud Controller
 use LeafletFields;
 
-// and call :
+// and call if your using App\Model\Settings model as your instance:
 $this->setLeafletFields();
 
 // to add default fields
@@ -35,7 +35,7 @@ or  add in your Crud controller manually where you want to see it as shown below
  $this->crud->addField([
                 'name' => 'leafjs-mapId', // this is not a name of field in database.
                 'type' => 'leafjs',
-                'model' => Model::class,
+                'model' => config('leafjs.model_name'), // you can modify under config folder or override by your own for each model
                 'options' => [
                     'provider' => 'mapbox',  // default algolia map provider
                     'marker_image' => null   // optional

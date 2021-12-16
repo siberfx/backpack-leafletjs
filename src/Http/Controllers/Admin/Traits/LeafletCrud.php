@@ -18,7 +18,7 @@ trait LeafletCrud
         $this->crud->addField([
             'name' => 'leafjs-mapId',
             'type' => 'leafjs',
-            'model' => Numen::class,
+            'model' => config('leafjs.model_name'),
             'options' => [
                 'provider' => 'mapbox',  // default algolia map provider
                 'marker_image' => null   // optional
