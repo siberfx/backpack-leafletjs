@@ -54,7 +54,7 @@ $crud->markFieldTypeAsLoaded($field)
 <link rel="stylesheet" type="text/css" href="//cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
 
 <style>
-    #{{ $mapId }
+    #{{ $mapId }}
     }
 
         {
