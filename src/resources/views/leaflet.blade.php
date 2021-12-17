@@ -55,9 +55,7 @@ $crud->markFieldTypeAsLoaded($field)
 
 <style>
     #{{ $mapId }}
-    }
-
-        {
+    {
         width: 100%;
         height: 300px;
         z-index: 100;
