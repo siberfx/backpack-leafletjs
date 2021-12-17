@@ -16,6 +16,23 @@ composer require siberfx/backpack-leafletjs
 ```
 
 ## Usage
+``` php
+
+// config/backpack/leaflet.php file content, you can modify it by your own settings.
+return [
+    'model_name' => App\Models\Setting::class,
+
+    'table_name' => 'settings',
+    'lat_field' => 'lat',
+    'lng_field' => 'lng',
+
+    'mapbox' => [
+        'access_token' => env('MAPS_MAPBOX_ACCESS_TOKEN', 'xxxxxxxxxxxxxxxxxxxxx'),
+    ],
+];
+
+```
+
 
 ``` php
 // Add LeafletFields trait to your Backpack Crud Controller
@@ -31,9 +48,11 @@ $this->setLeafletFields();
 // Add LeafletFields to your model
 use LeafletFields;
 ```
-or  add in your Crud controller manually where you want to see it as shown below. 
 
 ``` php
+
+// or  add in your Crud controller manually where you want to see it as shown below. 
+
  $this->crud->addField([
                 'name' => 'leafjs-mapId', // this is not a name of field in database.
                 'type' => 'leafjs',
@@ -57,8 +76,10 @@ Add fields in `$fillable` array if you want to save
 
 To set missing fields on your table :
 ```php
-\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LONGITUDE;
-\Siberfx\BackpackLeafletjs\Models\Interfaces\LerafletjsInterface::COLUMN_LATITUDE;
+config('backpack.leaflet.lat_field'), // or 'lat'
+config('backpack.leaflet.lng_field') // or 'lng'
+
+
 ```
 
 ### Security

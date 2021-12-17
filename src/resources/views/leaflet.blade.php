@@ -34,8 +34,8 @@ $lngMarker = isset($entry)
     <p class="help-block">{!! $field['hint'] !!}</p>
     @endif
     <div class="d-flex justify-content-center">
-        <input id="{{$mapId}}-map_lat" type="text" class="form-control col-6" name="lat" value="{{ $latMarker }}" readonly>
-        <input id="{{$mapId}}-map_lng" type="text" class="form-control col-6" name="lng" value="{{ $lngMarker }}" readonly>
+        <input id="{{$mapId}}-map_lat" type="text" class="form-control col-6" name="{{ config('backpack.leaflet.lat_field') }}" value="{{ $latMarker }}" readonly>
+        <input id="{{$mapId}}-map_lng" type="text" class="form-control col-6" name="{{ config('backpack.leaflet.lng_field') }}" value="{{ $lngMarker }}" readonly>
     </div>
 </div>
 @include('crud::fields.inc.wrapper_end')
