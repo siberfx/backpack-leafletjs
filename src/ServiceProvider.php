@@ -27,7 +27,7 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $crud_views = [
             // Crud Stuff
-            __DIR__ . '/resources/views' => resource_path('views'),
+            __DIR__ . '/resources/views' => resource_path('views/vendor/backpack/crud/fields'),
         ];
 
 
