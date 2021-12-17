@@ -12,7 +12,7 @@ use Backpack\CRUD\CrudPanel;
  */
 trait LeafletCrud
 {
-    protected function setSeoFields(array $extras = [])
+    protected function setLeafletFields(array $extras = [])
     {
 
         $this->crud->addField([
