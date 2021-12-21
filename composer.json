@@ -31,13 +31,13 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Siberfx\\BackpackLeafletjs\\ServiceProvider"
+                "Siberfx\\Leafletjs\\ServiceProvider"
             ]
         }
     },
   "autoload": {
     "psr-4": {
-      "Siberfx\\BackpackLeafletjs\\": "src"
+      "Siberfx\\Leafletjs\\": "src"
     }
   }
 }
