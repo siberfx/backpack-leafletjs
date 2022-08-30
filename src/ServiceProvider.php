@@ -29,7 +29,7 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $crud_views = [
             // Crud Stuff
-            __DIR__ . '/resources/views' => resource_path('views/vendor/backpack/crud/fields'),
+            __DIR__ . '/resources/views' => resource_path('views/crud/fields'),
         ];
 
 
@@ -41,7 +41,7 @@ class ServiceProvider extends IlluminateServiceProvider
 
         $crud_config = [
             // Config Stuff
-            __DIR__ . '/config' => config_path('backpack/'),
+            __DIR__ . '/config' => config_path(),
         ];
 
         $this->publishes([__DIR__ . '/database/migrations/' => database_path('migrations')], 'migrations');
