@@ -4,7 +4,7 @@
  <img src="https://github.com/siberfx/siberfx-leafletjs/raw/main/img/preview.png">
 </p>
 
-<img alt="Stars" src="https://img.shields.io/github/stars/siberfx/backpack-leafjs?style=plastic&labelColor=343b41"/> <img alt="Forks" src="https://img.shields.io/github/forks/siberfx/backpack-leafjs?style=plastic&labelColor=343b41"/>
+<img alt="Stars" src="https://img.shields.io/github/stars/siberfx/backpack-leafletjs?style=plastic&labelColor=343b41"/> <img alt="Forks" src="https://img.shields.io/github/forks/siberfx/backpack-leafletjs?style=plastic&labelColor=343b41"/>
  [![Latest Version on Packagist](https://img.shields.io/packagist/dt/siberfx/backpack-leafletjs?style=plastic)](https://packagist.org/packages/siberfx/backpack-leafletjs)
 
 ## Installation
