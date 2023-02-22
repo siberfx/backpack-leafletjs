@@ -1,9 +1,10 @@
 {
     "name": "siberfx/backpack-leafletjs",
-    "description": "Leafletjs for Laravel Backpack ^4.1",
+    "description": "Leafletjs for Laravel Backpack ^5.x",
     "keywords": [
         "laravel 8.x",
         "laravel 9.x",
+        "laravel 10.x",
         "backpack",
         "leafletjs",
         "leafjs",
@@ -17,12 +18,13 @@
         {
             "name": "Selim Görmüş",
             "email": "info@siberfx.com",
-            "role": "Fullstack Php Developer"
+            "role": "Fullstack Software Engineer"
         }
     ],
     "require": {
-        "php": "^7.4|^8.0|^8.1",
-        "illuminate/support": "^8.0|^9.0"
+        "php": "^7.4|^8.0|^8.1|^8.2",
+        "backpack/crud": "^5.2",
+        "illuminate/support": "^8.0|^9.0|^10.0"
     },
   "minimum-stability": "dev",
   "config": {
@@ -31,7 +33,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Siberfx\\Leafletjs\\ServiceProvider"
+              "Siberfx\\Leafletjs\\LeafLetServiceProvider"
             ]
         }
     },

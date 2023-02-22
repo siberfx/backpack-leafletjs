@@ -1,12 +1,12 @@
 <?php
 
-namespace Siberfx\Leafletjs\View\Components;
+namespace Siberfx\Leafletjs\View;
 
 use Illuminate\Support\Str;
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use Illuminate\View\View;
 
-class Leafjs extends Component
+class LeafletFrontend extends Component
 {
     const DEFAULTMAPID = "defaultMapId";
 
@@ -40,7 +40,7 @@ class Leafjs extends Component
             $markerArray[] = [implode(",", $marker)];
         }
 
-        return view('components.leafjs', [
+        return view('components.leaflet-frontend', [
             'centerPoint' => $this->centerPoint,
             'zoomLevel' => $this->zoomLevel,
             'maxZoomLevel' => $this->maxZoomLevel,

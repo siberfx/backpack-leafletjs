@@ -1,7 +1,7 @@
-## <p align="center">Leafletjs Implementation for Laravel Backpack ^4.1</p>
+## <p align="center">Leaflet with search lat,lng storing for Laravel Backpack 5.x</p>
 
 <p align="center">
- <img src="https://github.com/siberfx/backpack-leafletjs/raw/main/img/preview.png">
+ <img src="https://github.com/siberfx/siberfx-leafletjs/raw/main/img/preview.png">
 </p>
 
 <img alt="Stars" src="https://img.shields.io/github/stars/siberfx/backpack-leafjs?style=plastic&labelColor=343b41"/> <img alt="Forks" src="https://img.shields.io/github/forks/siberfx/backpack-leafjs?style=plastic&labelColor=343b41"/>
@@ -18,7 +18,7 @@ composer require siberfx/backpack-leafletjs
 ## Usage
 ``` php
 
-// config/backpack/leaflet.php file content, you can modify it by your own settings.
+// config/leaflet.php file content, you can modify it by your own settings.
 return [
     'model_name' => App\Models\Setting::class,
 
@@ -33,54 +33,81 @@ return [
 
 ```
 
+### Publish files
+
+``` bash
+php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="migrations" #publish the migration file
+php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="config" #publish the config file
+php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="lang" #publish the lang files
+php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="view_components" #publish the lang files
+```
+or
+``` bash
+php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="all" 
+```
+
+
+### Add Leaflet fields to your model
+
+You can override in which table are located your `"lat, lng"` fields and even the model you want to create the fields with the help of `config/backpack/leaflet.php` file and `table_name` field if its set already
+
+```php
+$fillable = [
+    'lat',
+    'lng',
+    ...
+];
+```
+or
+```php
+config('backpack.leaflet.lat_field'), // or 'lat'
+config('backpack.leaflet.lng_field') // or 'lng'
+
+```
+
+### Call it inside your controller like this or
 
 ``` php
-// Add LeafletFields trait to your Backpack Crud Controller
-use LeafletFields;
+// Add LeafletFields trait to your Crud Controller
+use Backpack\Leafletjs\Http\Controllers\Admin\Traits\LeafletCrud;
 
 // and call if your using App\Model\Settings model as your instance:
 $this->setLeafletFields();
 
 // to add default fields
 ```
+or add in your Crud controller manually where you want to see it as shown below.
 
 ``` php
-// Add LeafletFields to your model
-use LeafletFields;
-```
-
-``` php
-
-// or  add in your Crud controller manually where you want to see it as shown below. 
 
  $this->crud->addField([
-                'name' => 'leafjs-mapId', // this is not a name of field in database.
-                'type' => 'leafjs',
-                'model' => config('leafjs.model_name'), // you can modify under config folder or override by your own for each model
-                'options' => [
-                    'provider' => 'mapbox',  // default algolia map provider
-                    'marker_image' => null   // optional
-                ],
-                'hint' => '<em>You can also drag and adjust your mark by clicking</em>'
-        ]);
+        'name' => 'leafletMapId', // this is not a name of field in database.
+        'type' => 'leaflet',
+        'model' => config('backpack.leaflet.model_name'), // you can modify under config folder or override by your own for each model
+        'options' => [
+            'provider' => 'mapbox',  // default algolia map provider
+            'marker_image' => null   // optional
+        ],
+        'hint' => '<em>You can also drag and adjust your mark by clicking</em>'
+ ]);
+        
+ $this->crud->addField([
+    'name' => 'lat',
+    'type' => 'hidden',
+    'attributes' => ['id' => 'leafletMapId-lat'],
+    'tab' => 'General'
+ ]);
+        
+ $this->crud->addField([
+    'name' => 'lng',
+    'type' => 'hidden',
+    'attributes' => ['id' => 'leafletMapId-lng'],
+    'tab' => 'General'
+ ]);
+
 
 ```
 
-
-You can override in which table are located your "lat, lng" fields via config/leafjs.php file and "table_name" field if its set already
-
-To create database you can use migration : 
-`php artisan vendor:publish --provider="Siberfx\Leafletjs\LeafletBackpackServiceProvider"`
-
-Add fields in `$fillable` array if you want to save
-
-To set missing fields on your table :
-```php
-config('backpack.leaflet.lat_field'), // or 'lat'
-config('backpack.leaflet.lng_field') // or 'lng'
-
-
-```
 
 ### Security
 

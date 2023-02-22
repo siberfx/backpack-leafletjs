@@ -37,7 +37,7 @@
 @include('crud::fields.inc.wrapper_end')
 
 @push('crud_fields_styles')
-    @loadOnce('packages/leaflet/dist/leaflet.css')
+    @loadOnce('css/leaflet.css')
     @loadOnce('leaflet_custom_styles')
     <link rel="stylesheet" type="text/css" href="//cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
 
@@ -74,7 +74,7 @@
 
 @push('crud_fields_scripts')
 
-    @loadOnce('packages/leaflet/dist/leaflet.js')
+    @loadOnce('js/leaflet.js')
 
     @loadOnce('leaflet_custom_scripts')
     <script src="//cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
@@ -103,7 +103,7 @@
             id: 'mapbox/streets-v11',
             tileSize: 512,
             zoomOffset: -1,
-            accessToken: '{{config('backpack.leaflet.mapbox.access_token', null)}}'
+            accessToken: '{{config('siberfx.leaflet.mapbox.access_token', null)}}'
         }).addTo(map);
 
         var searchControl = new L.esri.Controls.Geosearch().addTo(map);
