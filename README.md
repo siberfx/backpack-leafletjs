@@ -1,4 +1,4 @@
-## <p align="center">Leaflet with search lat,lng storing for Laravel Backpack 5.x</p>
+## <p align="center">Leaflet with search lat,lng storing for Laravel Backpack 5.x|6.x</p>
 
 <p align="center">
  <img src="https://github.com/siberfx/siberfx-leafletjs/raw/main/img/preview.png">
