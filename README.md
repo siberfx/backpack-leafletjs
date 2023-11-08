@@ -78,7 +78,7 @@ $this->setLeafletFields();
 ```
 or add in your Crud controller manually where you want to see it as shown below.
 
-``` php
+```php
 
  $this->crud->addField([
         'name' => 'leafletMapId', // this is not a name of field in database.
@@ -107,7 +107,23 @@ or add in your Crud controller manually where you want to see it as shown below.
 
 
 ```
+or
 
+```php
+
+$this->crud->addField([
+        'name' => 'leafletMapId', // this is not a name of field in database.
+        'type' => 'leaflet',
+        'model' => config('backpack.leaflet.model_name'), // you can modify under config folder or override by your own for each model
+        'options' => [
+            'provider' => 'mapbox',  // default algolia map provider
+            'marker_image' => null   // optional
+        ],
+        'autogenerate' => true, // if you dont want to create the fields in crud controller for lat and lng you specified, it generates himself.
+   '    hint' => '<em>You can also drag and adjust your mark by clicking</em>'
+ ]);
+
+```
 
 ### Security
 

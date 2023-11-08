@@ -31,21 +31,16 @@ class LeafletServiceProvider extends ServiceProvider
             __DIR__ . '/View' => app_path('View/Components'),
         ];
 
-        $crud_assets = [
-            __DIR__ . '/public/css' => public_path('css'),
-            __DIR__ . '/public/js' => public_path('js'),
-        ];
 
         $crud_config = [
             __DIR__ . '/config' => config_path('backpack'),
         ];
 
         $this->publishes([__DIR__ . '/database/migrations/' => database_path('migrations')], 'migrations');
-        $this->publishes($crud_assets, 'public');
         $this->publishes($view_component, 'component');
         $this->publishes($crud_config, 'config');
         $this->publishes($crud_views, 'views');
-        $this->publishes(array_merge($crud_assets, $crud_config, $crud_views, $view_component), 'all');
+        $this->publishes(array_merge($crud_config, $crud_views, $view_component), 'all');
 
     }
 

@@ -103,7 +103,7 @@
             id: 'mapbox/streets-v11',
             tileSize: 512,
             zoomOffset: -1,
-            accessToken: '{{config('siberfx.leaflet.mapbox.access_token', null)}}'
+            accessToken: '{{config('backpack.leaflet.mapbox.access_token', null)}}'
         }).addTo(map);
 
         var searchControl = new L.esri.Controls.Geosearch().addTo(map);
