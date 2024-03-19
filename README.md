@@ -1,7 +1,7 @@
 ## <p align="center">Leaflet with search lat,lng storing for Laravel Backpack 5.x|6.x</p>
 
 <p align="center">
- <img src="https://github.com/siberfx/siberfx-leafletjs/raw/main/img/preview.png">
+ <img src="https://gitlab.com/siberfx/backpack-leafletjs/-/raw/main/img/preview.png?ref_type=heads">
 </p>
 
 <img alt="Stars" src="https://img.shields.io/github/stars/siberfx/backpack-leafletjs?style=plastic&labelColor=343b41"/> <img alt="Forks" src="https://img.shields.io/github/forks/siberfx/backpack-leafletjs?style=plastic&labelColor=343b41"/>
