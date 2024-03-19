@@ -2,9 +2,9 @@
     "name": "siberfx/backpack-leafletjs",
     "description": "Leafletjs for Laravel Backpack ^5.x",
     "keywords": [
-        "laravel 8.x",
         "laravel 9.x",
         "laravel 10.x",
+        "laravel 11.x",
         "backpack",
         "leafletjs",
         "leafjs",
@@ -24,7 +24,7 @@
     "require": {
         "php": "^8.1|^8.2",
         "backpack/crud": "^6.0",
-        "illuminate/support": "^9.0|^10.0"
+        "illuminate/support": "^9.0|^10.0|^11.0"
     },
   "minimum-stability": "dev",
   "config": {
