@@ -1,4 +1,4 @@
-## <p align="center">Leaflet with search lat,lng storing for Laravel Backpack 5.x|6.x</p>
+## <p align="center">Leaflet with search, lat,lng storing for Laravel 6.x</p>
 
 <p align="center">
  <img src="https://gitlab.com/siberfx/backpack-leafletjs/-/raw/main/img/preview.png?ref_type=heads">
@@ -38,7 +38,6 @@ return [
 ``` bash
 php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="migrations" #publish the migration file
 php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="config" #publish the config file
-php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="lang" #publish the lang files
 php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="view_components" #publish the lang files
 ```
 or

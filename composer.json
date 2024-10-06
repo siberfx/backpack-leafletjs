@@ -1,8 +1,7 @@
 {
     "name": "siberfx/backpack-leafletjs",
-    "description": "Leafletjs for Laravel Backpack ^5.x",
+    "description": "Leafletjs lat lng fields for Laravel Backpack ^6.x",
     "keywords": [
-        "laravel 9.x",
         "laravel 10.x",
         "laravel 11.x",
         "backpack",
@@ -22,9 +21,9 @@
         }
     ],
     "require": {
-        "php": "^8.1|^8.2",
+        "php": "^8.1",
         "backpack/crud": "^6.0",
-        "illuminate/support": "^9.0|^10.0|^11.0"
+        "illuminate/support": "^10.0|^11.0"
     },
   "minimum-stability": "dev",
   "config": {
