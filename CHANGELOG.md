@@ -77,9 +77,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Global Leaflet setup.
 
-[7.0.0]: https://github.com/siberfx/backpack-leafletjs/compare/2.1.0...7.0.0
-[6.1.3]: https://gitlab.com/siberfx/backpack-leafletjs/-/tags/6.1.3
-[6.1.1]: https://gitlab.com/siberfx/backpack-leafletjs/-/tags/6.1.1
+[7.0.0]: https://github.com/siberfx/backpack-leafletjs/compare/6.1.3...7.0.0
+[6.1.3]: https://github.com/siberfx/backpack-leafletjs/compare/6.1.1...6.1.3
+[6.1.1]: https://github.com/siberfx/backpack-leafletjs/releases/tag/6.1.1
 [2.0]: https://github.com/siberfx/backpack-leafletjs/releases/tag/2.0
 [5.0.0]: https://gitlab.com/siberfx/backpack-leafletjs/-/tags/5.0.0
 [1.5.0]: https://gitlab.com/siberfx/backpack-leafletjs/-/tags/1.5.0
