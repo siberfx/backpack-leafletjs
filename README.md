@@ -1,135 +1,200 @@
-## <p align="center">Leaflet with search lat,lng storing for Laravel Backpack 5.x|6.x</p>
+<h1 align="center">Backpack Leaflet.js</h1>
 
 <p align="center">
- <img src="https://github.com/siberfx/siberfx-leafletjs/raw/main/img/preview.png">
+    A map field and Blade component for <a href="https://backpackforlaravel.com">Backpack for Laravel</a> — click, drag or search to store latitude &amp; longitude, powered by <a href="https://leafletjs.com">Leaflet</a>.
 </p>
 
-<img alt="Stars" src="https://img.shields.io/github/stars/siberfx/backpack-leafletjs?style=plastic&labelColor=343b41"/> <img alt="Forks" src="https://img.shields.io/github/forks/siberfx/backpack-leafletjs?style=plastic&labelColor=343b41"/>
- [![Latest Version on Packagist](https://img.shields.io/packagist/dt/siberfx/backpack-leafletjs?style=plastic)](https://packagist.org/packages/siberfx/backpack-leafletjs)
+<p align="center">
+    <a href="https://packagist.org/packages/siberfx/backpack-leafletjs"><img src="https://img.shields.io/packagist/v/siberfx/backpack-leafletjs?style=flat-square&label=packagist" alt="Latest Version on Packagist"></a>
+    <a href="https://packagist.org/packages/siberfx/backpack-leafletjs"><img src="https://img.shields.io/packagist/dt/siberfx/backpack-leafletjs?style=flat-square" alt="Total Downloads"></a>
+    <a href="https://github.com/siberfx/backpack-leafletjs/actions/workflows/tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/siberfx/backpack-leafletjs/tests.yml?branch=main&style=flat-square&label=tests" alt="Tests"></a>
+    <a href="https://packagist.org/packages/siberfx/backpack-leafletjs"><img src="https://img.shields.io/packagist/dependency-v/siberfx/backpack-leafletjs/php?style=flat-square" alt="PHP Version"></a>
+    <img src="https://img.shields.io/badge/laravel-12.x%20%7C%2013.x-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel 12 | 13">
+    <img src="https://img.shields.io/badge/backpack-6.8%2B%20%7C%207.x-7C69EF?style=flat-square" alt="Backpack 6.8+ | 7.x">
+    <a href="LICENSE.md"><img src="https://img.shields.io/packagist/l/siberfx/backpack-leafletjs?style=flat-square" alt="License"></a>
+    <a href="https://github.com/siberfx/backpack-leafletjs/stargazers"><img src="https://img.shields.io/github/stars/siberfx/backpack-leafletjs?style=flat-square" alt="Stars"></a>
+</p>
+
+<p align="center">
+    <img src="https://github.com/siberfx/backpack-leafletjs/raw/main/img/preview.png" alt="Leaflet field preview">
+</p>
+
+## Features
+
+- 🗺️ **`leaflet` CRUD field** — click the map, drag the marker or search an address to set a location.
+- 🔎 **Address search** via [leaflet-control-geocoder](https://github.com/perliedman/leaflet-control-geocoder) (OpenStreetMap Nominatim, no key needed).
+- 🧩 **`<x-leaflet-frontend>` Blade component** to show maps and markers on public pages.
+- 🌍 **OpenStreetMap out of the box**, Mapbox when you add a token.
+- ⚡ **Zero copying** — config, views and the component are registered by the service provider; publish only what you want to customise.
+- ✅ Works with multiple maps per form, tabs and modals.
+
+## Requirements
+
+| Package              | Version          |
+| -------------------- | ---------------- |
+| PHP                  | 8.2 – 8.5        |
+| Laravel              | 12.x, 13.x       |
+| Backpack for Laravel | 6.8+, 7.x        |
+
+> Need Laravel 10/11 or Backpack 5? Use the `6.x` releases of this package.
 
 ## Installation
-
-You can install the package via composer:
 
 ```bash
 composer require siberfx/backpack-leafletjs
 ```
 
+The service provider is auto-discovered. Optionally publish the migration (adds `lat`/`lng` columns to the configured table) and run it:
+
+```bash
+php artisan vendor:publish --tag=leafletjs-migrations
+php artisan migrate
+```
+
 ## Usage
-``` php
 
-// config/leaflet.php file content, you can modify it by your own settings.
+### CRUD field
+
+Name the field after both coordinate columns, separated by a comma. The field renders and saves both inputs:
+
+```php
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+
+CRUD::field([
+    'name' => 'lat,lng',
+    'label' => 'Location',
+    'type' => 'leaflet',
+    'options' => [
+        'provider' => 'openstreetmap', // or 'mapbox' — defaults to config('backpack.leaflet.provider')
+        'zoom' => 14,
+        'height' => '400px',
+        'search' => true,              // show the address search box
+        'marker_image' => null,        // optional custom marker icon URL
+    ],
+    'hint' => 'Click the map, drag the marker or search an address.',
+]);
+```
+
+Make sure both columns are fillable on your model:
+
+```php
+protected $fillable = ['lat', 'lng'];
+```
+
+### Using the trait
+
+The `LeafletCrud` trait adds the field above using the column names from the config:
+
+```php
+use Siberfx\Leafletjs\Http\Controllers\Admin\Traits\LeafletCrud;
+
+class PlaceCrudController extends CrudController
+{
+    use LeafletCrud;
+
+    protected function setupCreateOperation(): void
+    {
+        $this->setLeafletFields(['tab' => 'General']);
+    }
+}
+```
+
+<details>
+<summary>Legacy setup: map field + separate hidden inputs</summary>
+
+A single-name field writes into inputs whose ids are `{name}-lat` and `{name}-lng`:
+
+```php
+CRUD::field(['name' => 'leafletMapId', 'type' => 'leaflet']);
+CRUD::field(['name' => 'lat', 'type' => 'hidden', 'attributes' => ['id' => 'leafletMapId-lat']]);
+CRUD::field(['name' => 'lng', 'type' => 'hidden', 'attributes' => ['id' => 'leafletMapId-lng']]);
+```
+
+</details>
+
+### Frontend component
+
+```blade
+<x-leaflet-frontend
+    id="office-map"
+    :center-point="[52.3676, 4.9041]"
+    :markers="[
+        [52.3676, 4.9041],
+        ['lat' => 52.0907, 'lng' => 5.1214, 'popup' => 'Utrecht office'],
+    ]"
+    :zoom-level="9"
+    :max-zoom-level="18"
+    tile-host="openstreetmap"
+    height="450px"
+    class="rounded shadow"
+/>
+```
+
+All attributes are optional — without `center-point` the map uses `default_center` from the config. Popup text is escaped.
+
+## Configuration
+
+The defaults work without publishing anything. To customise them:
+
+```bash
+php artisan vendor:publish --tag=leafletjs-config
+```
+
+This creates `config/backpack/leaflet.php`:
+
+```php
 return [
-    'model_name' => App\Models\Setting::class,
-
-    'table_name' => 'settings',
+    'table_name' => 'settings',   // table used by the migration
     'lat_field' => 'lat',
     'lng_field' => 'lng',
 
-    'mapbox' => [
-        'access_token' => env('MAPS_MAPBOX_ACCESS_TOKEN', 'xxxxxxxxxxxxxxxxxxxxx'),
-    ],
-];
+    'default_center' => ['lat' => 53.8965741, 'lng' => 27.547158],
+    'default_zoom' => 14,
 
-```
-
-### Publish files
-
-``` bash
-php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="migrations" #publish the migration file
-php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="config" #publish the config file
-php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="lang" #publish the lang files
-php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="view_components" #publish the lang files
-```
-or
-``` bash
-php artisan vendor:publish --provider="Backpack\Leafletjs\LeafLetServiceProvider" --tag="all" 
-```
-
-
-### Add Leaflet fields to your model
-
-You can override in which table are located your `"lat, lng"` fields and even the model you want to create the fields with the help of `config/backpack/leaflet.php` file and `table_name` field if its set already
-
-```php
-$fillable = [
-    'lat',
-    'lng',
-    ...
+    'provider' => env('LEAFLET_PROVIDER', env('MAPS_MAPBOX_ACCESS_TOKEN') ? 'mapbox' : 'openstreetmap'),
+    'providers' => [/* openstreetmap, mapbox — add your own tile servers here */],
+    'assets' => [/* Leaflet & geocoder CDN URLs */],
 ];
 ```
-or
-```php
-config('backpack.leaflet.lat_field'), // or 'lat'
-config('backpack.leaflet.lng_field') // or 'lng'
 
+### Mapbox
+
+Add your token to `.env` and Mapbox tiles are used automatically:
+
+```dotenv
+MAPS_MAPBOX_ACCESS_TOKEN=pk.your-token
+MAPS_MAPBOX_STYLE=mapbox/streets-v12
 ```
 
-### Call it inside your controller like this or
+If the `mapbox` provider is selected without a token, the map falls back to OpenStreetMap.
 
-``` php
-// Add LeafletFields trait to your Crud Controller
-use Backpack\Leafletjs\Http\Controllers\Admin\Traits\LeafletCrud;
+### Customising the views
 
-// and call if your using App\Model\Settings model as your instance:
-$this->setLeafletFields();
-
-// to add default fields
-```
-or add in your Crud controller manually where you want to see it as shown below.
-
-```php
-
- $this->crud->addField([
-        'name' => 'leafletMapId', // this is not a name of field in database.
-        'type' => 'leaflet',
-        'model' => config('backpack.leaflet.model_name'), // you can modify under config folder or override by your own for each model
-        'options' => [
-            'provider' => 'mapbox',  // default algolia map provider
-            'marker_image' => null   // optional
-        ],
-        'hint' => '<em>You can also drag and adjust your mark by clicking</em>'
- ]);
-        
- $this->crud->addField([
-    'name' => 'lat',
-    'type' => 'hidden',
-    'attributes' => ['id' => 'leafletMapId-lat'],
-    'tab' => 'General'
- ]);
-        
- $this->crud->addField([
-    'name' => 'lng',
-    'type' => 'hidden',
-    'attributes' => ['id' => 'leafletMapId-lng'],
-    'tab' => 'General'
- ]);
-
-
-```
-or
-
-```php
-
-$this->crud->addField([
-        'name' => 'leafletMapId', // this is not a name of field in database.
-        'type' => 'leaflet',
-        'model' => config('backpack.leaflet.model_name'), // you can modify under config folder or override by your own for each model
-        'options' => [
-            'provider' => 'mapbox',  // default algolia map provider
-            'marker_image' => null   // optional
-        ],
-        'autogenerate' => true, // if you dont want to create the fields in crud controller for lat and lng you specified, it generates himself.
-   '    hint' => '<em>You can also drag and adjust your mark by clicking</em>'
- ]);
-
+```bash
+php artisan vendor:publish --tag=leafletjs-views
 ```
 
-### Security
+Views are published to `resources/views/vendor/leafletjs` and take precedence over the package views.
 
-If you discover any security related issues, please email info@siberfx.com instead of using the issue tracker.
+## Testing
+
+```bash
+composer test
+```
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for what has changed recently, including the upgrade guide from 6.x.
+
+## Security
+
+If you discover a security issue, please email [info@siberfx.com](mailto:info@siberfx.com) instead of using the issue tracker.
 
 ## Credits
 
-- [Selim Gormus](https://github.com/siberfx)
+- [Selim Görmüş](https://github.com/siberfx)
+- [All contributors](https://github.com/siberfx/backpack-leafletjs/contributors)
 
+## License
+
+The MIT License (MIT). See [LICENSE.md](LICENSE.md) for details.

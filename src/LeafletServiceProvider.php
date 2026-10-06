@@ -2,53 +2,39 @@
 
 namespace Siberfx\Leafletjs;
 
+use Backpack\CRUD\ViewNamespaces;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Siberfx\Leafletjs\View\Components\LeafletFrontend;
 
 class LeafletServiceProvider extends ServiceProvider
 {
-
-    protected $defer = false;
-
-    /**
-     * Bootstrap the application services.
-     */
-    public function boot()
+    public function register(): void
     {
-        if ($this->app->runningInConsole()) {
-            // publish the migrations and seeds
+        $this->mergeConfigFrom(__DIR__.'/../config/leaflet.php', 'backpack.leaflet');
+    }
 
-            $this->publish();
+    public function boot(): void
+    {
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'leafletjs');
+
+        ViewNamespaces::addFor('fields', 'leafletjs::fields');
+
+        Blade::component('leaflet-frontend', LeafletFrontend::class);
+
+        if ($this->app->runningInConsole()) {
+            $this->registerPublishing();
         }
     }
 
-    private function publish()
+    private function registerPublishing(): void
     {
-        $crud_views = [
-            __DIR__ . '/resources/views' => resource_path('views/vendor/backpack/crud/fields'),
-        ];
-        $view_component = [
-            __DIR__ . '/resources/components' => resource_path('views/components'),
-            __DIR__ . '/View' => app_path('View/Components'),
-        ];
+        $config = [__DIR__.'/../config/leaflet.php' => config_path('backpack/leaflet.php')];
+        $views = [__DIR__.'/../resources/views' => resource_path('views/vendor/leafletjs')];
+        $migrations = [__DIR__.'/../database/migrations' => database_path('migrations')];
 
-
-        $crud_config = [
-            __DIR__ . '/config' => config_path('backpack'),
-        ];
-
-        $this->publishes([__DIR__ . '/database/migrations/' => database_path('migrations')], 'migrations');
-        $this->publishes($view_component, 'component');
-        $this->publishes($crud_config, 'config');
-        $this->publishes($crud_views, 'views');
-        $this->publishes(array_merge($crud_config, $crud_views, $view_component), 'all');
-
-    }
-
-    /**
-     * Register the application services.
-     */
-    public function register()
-    {
-
+        $this->publishes($config, 'leafletjs-config');
+        $this->publishes($views, 'leafletjs-views');
+        $this->publishesMigrations($migrations, 'leafletjs-migrations');
     }
 }
