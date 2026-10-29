@@ -5,6 +5,17 @@ All notable changes to `siberfx/backpack-leafletjs` are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.1.0] - 2026-10-29
+
+### Changed
+
+- Minimum PHP version is now **8.3**. PHP 8.3, 8.4 and 8.5 are tested in CI.
+- README rewritten for clarity; the requirements table lists the supported PHP range.
+
+### Removed
+
+- PHP 8.2 support. `composer.json` requires `^8.3` and the 8.2 CI jobs are gone.
+
 ## [7.0.0] - 2026-10-06
 
 ### Added
@@ -77,6 +88,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Global Leaflet setup.
 
+[7.1.0]: https://github.com/siberfx/backpack-leafletjs/compare/7.0.0...7.1.0
 [7.0.0]: https://github.com/siberfx/backpack-leafletjs/compare/6.1.3...7.0.0
 [6.1.3]: https://github.com/siberfx/backpack-leafletjs/compare/6.1.1...6.1.3
 [6.1.1]: https://github.com/siberfx/backpack-leafletjs/releases/tag/6.1.1

@@ -1,7 +1,7 @@
 <h1 align="center">Backpack Leaflet.js</h1>
 
 <p align="center">
-    A map field and Blade component for <a href="https://backpackforlaravel.com">Backpack for Laravel</a> — click, drag or search to store latitude &amp; longitude, powered by <a href="https://leafletjs.com">Leaflet</a>.
+    A map field and Blade component for <a href="https://backpackforlaravel.com">Backpack for Laravel</a>. Click, drag or search to store latitude &amp; longitude, powered by <a href="https://leafletjs.com">Leaflet</a>.
 </p>
 
 <p align="center">
@@ -12,7 +12,6 @@
     <img src="https://img.shields.io/badge/laravel-12.x%20%7C%2013.x-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel 12 | 13">
     <img src="https://img.shields.io/badge/backpack-6.8%2B%20%7C%207.x-7C69EF?style=flat-square" alt="Backpack 6.8+ | 7.x">
     <a href="LICENSE.md"><img src="https://img.shields.io/packagist/l/siberfx/backpack-leafletjs?style=flat-square" alt="License"></a>
-    <a href="https://github.com/siberfx/backpack-leafletjs/stargazers"><img src="https://img.shields.io/github/stars/siberfx/backpack-leafletjs?style=flat-square" alt="Stars"></a>
 </p>
 
 <p align="center">
@@ -21,22 +20,22 @@
 
 ## Features
 
-- 🗺️ **`leaflet` CRUD field** — click the map, drag the marker or search an address to set a location.
-- 🔎 **Address search** via [leaflet-control-geocoder](https://github.com/perliedman/leaflet-control-geocoder) (OpenStreetMap Nominatim, no key needed).
-- 🧩 **`<x-leaflet-frontend>` Blade component** to show maps and markers on public pages.
-- 🌍 **OpenStreetMap out of the box**, Mapbox when you add a token.
-- ⚡ **Zero copying** — config, views and the component are registered by the service provider; publish only what you want to customise.
-- ✅ Works with multiple maps per form, tabs and modals.
+- **`leaflet` CRUD field.** Click the map, drag the marker or search an address to set a location.
+- **Address search** through [leaflet-control-geocoder](https://github.com/perliedman/leaflet-control-geocoder) (OpenStreetMap Nominatim, no API key).
+- **`<x-leaflet-frontend>` Blade component** for maps and markers on public pages.
+- **OpenStreetMap by default**, with Mapbox available once you add a token.
+- **Nothing to copy.** Views, config and the component are registered by the service provider. Publish only what you want to customise.
+- Several maps per form, and maps inside tabs and modals, work out of the box.
 
 ## Requirements
 
-| Package              | Version          |
+| Package              | Supported        |
 | -------------------- | ---------------- |
-| PHP                  | 8.2 – 8.5        |
+| PHP                  | 8.3 – 8.5        |
 | Laravel              | 12.x, 13.x       |
 | Backpack for Laravel | 6.8+, 7.x        |
 
-> Need Laravel 10/11 or Backpack 5? Use the `6.x` releases of this package.
+> Need PHP 8.2, Laravel 10/11 or Backpack 5? Use an earlier release of this package (`6.x`).
 
 ## Installation
 
@@ -44,7 +43,9 @@
 composer require siberfx/backpack-leafletjs
 ```
 
-The service provider is auto-discovered. Optionally publish the migration (adds `lat`/`lng` columns to the configured table) and run it:
+The service provider is auto-discovered.
+
+If you want the package to create the coordinate columns, publish and run the migration. It adds `lat` and `lng` decimal columns to the table set in `backpack.leaflet.table_name`:
 
 ```bash
 php artisan vendor:publish --tag=leafletjs-migrations
@@ -53,9 +54,9 @@ php artisan migrate
 
 ## Usage
 
-### CRUD field
+### The CRUD field
 
-Name the field after both coordinate columns, separated by a comma. The field renders and saves both inputs:
+Name the field after both coordinate columns, separated by a comma. The field renders and saves both inputs itself:
 
 ```php
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -65,7 +66,7 @@ CRUD::field([
     'label' => 'Location',
     'type' => 'leaflet',
     'options' => [
-        'provider' => 'openstreetmap', // or 'mapbox' — defaults to config('backpack.leaflet.provider')
+        'provider' => 'openstreetmap', // or 'mapbox'. Defaults to config('backpack.leaflet.provider').
         'zoom' => 14,
         'height' => '400px',
         'search' => true,              // show the address search box
@@ -83,7 +84,7 @@ protected $fillable = ['lat', 'lng'];
 
 ### Using the trait
 
-The `LeafletCrud` trait adds the field above using the column names from the config:
+`LeafletCrud` adds the field using the column names from the config. Extra field settings such as `tab`, `label` or `hint` are merged in:
 
 ```php
 use Siberfx\Leafletjs\Http\Controllers\Admin\Traits\LeafletCrud;
@@ -100,9 +101,9 @@ class PlaceCrudController extends CrudController
 ```
 
 <details>
-<summary>Legacy setup: map field + separate hidden inputs</summary>
+<summary>Legacy setup: a map field that writes into your own hidden inputs</summary>
 
-A single-name field writes into inputs whose ids are `{name}-lat` and `{name}-lng`:
+With a single-name field, the map writes into inputs whose ids are `{name}-lat` and `{name}-lng`:
 
 ```php
 CRUD::field(['name' => 'leafletMapId', 'type' => 'leaflet']);
@@ -113,6 +114,8 @@ CRUD::field(['name' => 'lng', 'type' => 'hidden', 'attributes' => ['id' => 'leaf
 </details>
 
 ### Frontend component
+
+Show a map on any Blade page:
 
 ```blade
 <x-leaflet-frontend
@@ -130,7 +133,7 @@ CRUD::field(['name' => 'lng', 'type' => 'hidden', 'attributes' => ['id' => 'leaf
 />
 ```
 
-All attributes are optional — without `center-point` the map uses `default_center` from the config. Popup text is escaped.
+Every attribute is optional. Without `center-point`, the map centres on `default_center` from the config. Popup text is escaped.
 
 ## Configuration
 
@@ -152,21 +155,21 @@ return [
     'default_zoom' => 14,
 
     'provider' => env('LEAFLET_PROVIDER', env('MAPS_MAPBOX_ACCESS_TOKEN') ? 'mapbox' : 'openstreetmap'),
-    'providers' => [/* openstreetmap, mapbox — add your own tile servers here */],
-    'assets' => [/* Leaflet & geocoder CDN URLs */],
+    'providers' => [/* openstreetmap and mapbox. Add your own tile servers here. */],
+    'assets' => [/* Leaflet and geocoder CDN URLs */],
 ];
 ```
 
 ### Mapbox
 
-Add your token to `.env` and Mapbox tiles are used automatically:
+Add your token to `.env` and the `mapbox` provider is used automatically:
 
 ```dotenv
 MAPS_MAPBOX_ACCESS_TOKEN=pk.your-token
 MAPS_MAPBOX_STYLE=mapbox/streets-v12
 ```
 
-If the `mapbox` provider is selected without a token, the map falls back to OpenStreetMap.
+If `mapbox` is selected without a token, the map falls back to OpenStreetMap.
 
 ### Customising the views
 
@@ -174,21 +177,24 @@ If the `mapbox` provider is selected without a token, the map falls back to Open
 php artisan vendor:publish --tag=leafletjs-views
 ```
 
-Views are published to `resources/views/vendor/leafletjs` and take precedence over the package views.
+Published views go to `resources/views/vendor/leafletjs` and take precedence over the package views.
 
 ## Testing
 
 ```bash
+composer install
 composer test
 ```
 
+The suite runs on Orchestra Testbench. CI runs it on PHP 8.3, 8.4 and 8.5 against Laravel 12 and 13.
+
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for what has changed recently, including the upgrade guide from 6.x.
+See [CHANGELOG.md](CHANGELOG.md) for release notes and the upgrade guide from 6.x.
 
 ## Security
 
-If you discover a security issue, please email [info@siberfx.com](mailto:info@siberfx.com) instead of using the issue tracker.
+If you discover a security issue, please email [info@siberfx.com](mailto:info@siberfx.com) instead of opening a public issue.
 
 ## Credits
 
