@@ -30,4 +30,41 @@ class LeafletFrontendTest extends TestCase
             ->assertSee('id="leaflet-', false)
             ->assertSee('[53.8965741,27.547158]', false);
     }
+
+    #[Test]
+    public function it_zooms_to_the_configured_default_zoom(): void
+    {
+        $this->blade('<x-leaflet-frontend />')
+            ->assertSee('], 14);', false);
+
+        config(['backpack.leaflet.default_zoom' => 9]);
+
+        $this->blade('<x-leaflet-frontend />')
+            ->assertSee('], 9);', false);
+    }
+
+    #[Test]
+    public function it_accepts_an_explicit_zoom_level(): void
+    {
+        $this->blade('<x-leaflet-frontend :zoom-level="5" />')
+            ->assertSee('], 5);', false);
+    }
+
+    #[Test]
+    public function it_selects_the_tile_provider_with_the_provider_attribute(): void
+    {
+        config(['backpack.leaflet.providers.mapbox.options.accessToken' => 'pk.test']);
+
+        $this->blade('<x-leaflet-frontend provider="mapbox" />')
+            ->assertSee('api.mapbox.com', false);
+    }
+
+    #[Test]
+    public function it_still_accepts_tile_host_as_an_alias_of_provider(): void
+    {
+        config(['backpack.leaflet.providers.mapbox.options.accessToken' => 'pk.test']);
+
+        $this->blade('<x-leaflet-frontend tile-host="mapbox" />')
+            ->assertSee('api.mapbox.com', false);
+    }
 }

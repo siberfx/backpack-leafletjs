@@ -127,13 +127,13 @@ Show a map on any Blade page:
     ]"
     :zoom-level="9"
     :max-zoom-level="18"
-    tile-host="openstreetmap"
+    provider="openstreetmap"
     height="450px"
     class="rounded shadow"
 />
 ```
 
-Every attribute is optional. Without `center-point`, the map centres on `default_center` from the config. Popup text is escaped.
+Every attribute is optional. Without `center-point`, the map centres on `default_center` from the config. Without `zoom-level`, it uses `default_zoom`. Popup text is escaped. `tile-host` still works as an alias of `provider`.
 
 ## Configuration
 
@@ -147,7 +147,7 @@ This creates `config/backpack/leaflet.php`:
 
 ```php
 return [
-    'table_name' => 'settings',   // table used by the migration
+    'table_name' => 'settings',   // existing table the migration adds lat/lng to; set it to your own table
     'lat_field' => 'lat',
     'lng_field' => 'lng',
 

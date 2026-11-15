@@ -23,6 +23,20 @@ class TileLayerTest extends TestCase
     }
 
     #[Test]
+    public function it_falls_back_to_openstreetmap_for_an_unknown_provider(): void
+    {
+        $this->assertStringContainsString('tile.openstreetmap.org', TileLayer::resolve('no-such-provider')['url']);
+    }
+
+    #[Test]
+    public function it_uses_the_configured_provider_when_none_is_passed(): void
+    {
+        config(['backpack.leaflet.provider' => 'mapbox', 'backpack.leaflet.providers.mapbox.options.accessToken' => 'pk.test']);
+
+        $this->assertStringContainsString('api.mapbox.com', TileLayer::resolve()['url']);
+    }
+
+    #[Test]
     public function it_uses_mapbox_when_a_token_is_configured(): void
     {
         config(['backpack.leaflet.providers.mapbox.options.accessToken' => 'pk.test']);

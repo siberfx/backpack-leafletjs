@@ -17,8 +17,7 @@
         $latSelector = '#'.$mapId.'-lat';
         $lngSelector = '#'.$mapId.'-lng';
     } else {
-        $latValue = isset($entry) ? $entry->{config('backpack.leaflet.lat_field', 'lat')} : null;
-        $lngValue = isset($entry) ? $entry->{config('backpack.leaflet.lng_field', 'lng')} : null;
+        // Legacy: the host app owns the inputs, so there is nothing to render or prefill here.
         $latSelector = '#'.$names[0].'-lat';
         $lngSelector = '#'.$names[0].'-lng';
     }

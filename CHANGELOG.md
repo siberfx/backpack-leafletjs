@@ -5,6 +5,22 @@ All notable changes to `siberfx/backpack-leafletjs` are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- `<x-leaflet-frontend>` accepts a `provider` attribute. `tile-host` still works as an alias.
+- The migration fails with a clear message when `backpack.leaflet.table_name` does not point at an existing table.
+- Tests for the `LeafletCrud` trait, the migration, the frontend zoom and provider defaults, and tile provider fallbacks.
+
+### Changed
+
+- `<x-leaflet-frontend>` zoom defaults to `backpack.leaflet.default_zoom` (14) instead of a hardcoded 13.
+
+### Removed
+
+- Unused value lookups in the legacy single-name field branch.
+
 ## [7.1.0] - 2026-10-29
 
 ### Changed
