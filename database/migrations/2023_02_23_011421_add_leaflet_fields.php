@@ -33,7 +33,7 @@ return new class extends Migration
         $table = config('backpack.leaflet.table_name');
 
         if (! is_string($table) || $table === '' || ! Schema::hasTable($table)) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 "The leaflet migration needs an existing table. Set 'backpack.leaflet.table_name' to the table that stores your coordinates (currently [{$table}])."
             );
         }
