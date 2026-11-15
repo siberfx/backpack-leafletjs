@@ -24,6 +24,10 @@
 
     $center = config('backpack.leaflet.default_center');
     $tileLayer = \Siberfx\Leafletjs\Support\TileLayer::resolve($field['options']['provider'] ?? null);
+    $cssUrl = config('backpack.leaflet.assets.leaflet_css');
+    $geocoderCssUrl = config('backpack.leaflet.assets.geocoder_css');
+    $jsUrl = config('backpack.leaflet.assets.leaflet_js');
+    $geocoderJsUrl = config('backpack.leaflet.assets.geocoder_js');
 @endphp
 
 @include('crud::fields.inc.wrapper_start')
@@ -41,6 +45,8 @@
         data-tile-layer="{{ json_encode($tileLayer) }}"
         data-marker-image="{{ $field['options']['marker_image'] ?? '' }}"
         data-search="{{ ($field['options']['search'] ?? true) ? 'true' : 'false' }}"
+        data-clearable="{{ ($field['options']['clearable'] ?? true) ? 'true' : 'false' }}"
+        data-clear-label="{{ __('Clear location') }}"
     >
         <div class="leaflet-field-map" style="height: {{ $field['options']['height'] ?? '350px' }}"></div>
     </div>
@@ -58,8 +64,8 @@
 
 {{-- FIELD CSS - loaded once per page --}}
 @push('crud_fields_styles')
-    @basset(config('backpack.leaflet.assets.leaflet_css'))
-    @basset(config('backpack.leaflet.assets.geocoder_css'))
+    @basset($cssUrl, true, \Siberfx\Leafletjs\Support\AssetAttributes::for($cssUrl))
+    @basset($geocoderCssUrl, true, \Siberfx\Leafletjs\Support\AssetAttributes::for($geocoderCssUrl))
     @bassetBlock('siberfx/leafletjs/leaflet-field.css')
     <style>
         .leaflet-field-map {
@@ -67,14 +73,17 @@
             z-index: 0;
             border-radius: var(--tblr-border-radius, 4px);
         }
+        .leaflet-field-clear {
+            margin-top: .5rem;
+        }
     </style>
     @endBassetBlock
 @endpush
 
 {{-- FIELD JS - loaded once per page --}}
 @push('crud_fields_scripts')
-    @basset(config('backpack.leaflet.assets.leaflet_js'))
-    @basset(config('backpack.leaflet.assets.geocoder_js'))
+    @basset($jsUrl, true, \Siberfx\Leafletjs\Support\AssetAttributes::for($jsUrl))
+    @basset($geocoderJsUrl, true, \Siberfx\Leafletjs\Support\AssetAttributes::for($geocoderJsUrl))
     @once
     <script>
         // Basset serves leaflet.css from a local cache, so point the default marker at the CDN images.
@@ -89,6 +98,7 @@
             const lngInput = document.querySelector(element.data('lng-input'));
             const tileLayer = element.data('tile-layer');
             const markerImage = element.data('marker-image');
+            const sameSpot = (a, b) => a.equals(b, 1e-6);
 
             const hasValue = Boolean(latInput?.value && lngInput?.value);
             const start = hasValue
@@ -104,19 +114,76 @@
             if (markerImage) {
                 markerOptions.icon = L.icon({ iconUrl: markerImage, iconSize: [25, 41], iconAnchor: [12, 41] });
             }
-            const marker = L.marker(start, markerOptions).addTo(map);
 
-            const setPosition = (latlng) => {
-                marker.setLatLng(latlng);
-                [[latInput, latlng.lat], [lngInput, latlng.lng]].forEach(([input, value]) => {
+            let marker = null;
+
+            const placeMarker = (latlng) => {
+                if (marker) {
+                    marker.setLatLng(latlng);
+                    return;
+                }
+                marker = L.marker(latlng, markerOptions).addTo(map);
+                marker.on('dragend', () => setPosition(marker.getLatLng()));
+            };
+
+            const removeMarker = () => {
+                if (!marker) return;
+                map.removeLayer(marker);
+                marker = null;
+            };
+
+            // Writes the inputs and tells listeners (forms, other scripts) about the change.
+            const writeInputs = (lat, lng) => {
+                [[latInput, lat], [lngInput, lng]].forEach(([input, value]) => {
                     if (!input) return;
-                    input.value = value.toFixed(7);
+                    input.value = value === null ? '' : value.toFixed(7);
                     input.dispatchEvent(new Event('change', { bubbles: true }));
                 });
             };
 
+            const setPosition = (latlng) => {
+                placeMarker(latlng);
+                writeInputs(latlng.lat, latlng.lng);
+            };
+
+            const clearPosition = () => {
+                removeMarker();
+                writeInputs(null, null);
+            };
+
+            // Typing into external inputs (legacy mode) moves the marker. Our own writes are
+            // ignored because the marker already sits on those coordinates.
+            const syncFromInputs = () => {
+                const latText = latInput?.value ?? '';
+                const lngText = lngInput?.value ?? '';
+
+                if (latText === '' && lngText === '') {
+                    removeMarker();
+                    return;
+                }
+
+                const lat = parseFloat(latText);
+                const lng = parseFloat(lngText);
+                if (Number.isNaN(lat) || Number.isNaN(lng)) return;
+
+                const latlng = L.latLng(lat, lng);
+                if (marker && sameSpot(marker.getLatLng(), latlng)) return;
+
+                placeMarker(latlng);
+                map.panTo(latlng);
+            };
+
+            [latInput, lngInput].forEach((input) => {
+                input?.addEventListener('input', syncFromInputs);
+                input?.addEventListener('change', syncFromInputs);
+            });
+
+            // Only show a marker for a saved location; an empty field waits for a click.
+            if (hasValue) {
+                placeMarker(L.latLng(start));
+            }
+
             map.on('click', (event) => setPosition(event.latlng));
-            marker.on('dragend', () => setPosition(marker.getLatLng()));
 
             if (element.data('search') && L.Control.geocoder) {
                 L.Control.geocoder({ defaultMarkGeocode: false })
@@ -125,6 +192,15 @@
                         map.fitBounds(event.geocode.bbox);
                     })
                     .addTo(map);
+            }
+
+            if (element.data('clearable')) {
+                const clearButton = document.createElement('button');
+                clearButton.type = 'button';
+                clearButton.className = 'btn btn-sm btn-outline-secondary leaflet-field-clear';
+                clearButton.textContent = element.data('clear-label');
+                clearButton.addEventListener('click', clearPosition);
+                container.appendChild(clearButton);
             }
 
             // Maps rendered inside hidden tabs/modals need a resize once they become visible.

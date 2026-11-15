@@ -22,6 +22,9 @@ class LeafletFrontend extends Component
 
     public int $zoomLevel;
 
+    /** True when no center point was given, so the map fits all markers instead. */
+    public bool $fitToMarkers;
+
     /**
      * @param  array<int|string, float>  $centerPoint  [lat, lng] or ['lat' => ..., 'lng' => ...]
      * @param  array<int, array<int|string, mixed>>  $markers  Each one [lat, lng] or ['lat' => ..., 'lng' => ..., 'popup' => ...]
@@ -48,6 +51,7 @@ class LeafletFrontend extends Component
             ...array_combine(['lat', 'lng'], $this->toLatLng($marker)),
             'popup' => isset($marker['popup']) ? e($marker['popup']) : null,
         ], array_values($markers));
+        $this->fitToMarkers = $centerPoint === [] && $this->markers !== [];
         $this->tileLayer = TileLayer::resolve($provider ?? $tileHost);
         $this->tileLayer['options']['maxZoom'] = $maxZoomLevel;
     }

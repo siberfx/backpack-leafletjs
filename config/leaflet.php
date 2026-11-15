@@ -84,4 +84,22 @@ return [
         'geocoder_css' => 'https://cdn.jsdelivr.net/npm/leaflet-control-geocoder@3.1.0/dist/Control.Geocoder.css',
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Subresource Integrity
+    |--------------------------------------------------------------------------
+    |
+    | SHA-384 hashes for the default CDN files above, keyed by URL. The browser
+    | refuses a file whose content does not match. Assets whose URL is not
+    | listed here (your own mirror or version) are loaded without a hash.
+    |
+    */
+
+    'integrity' => [
+        'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js' => 'sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH',
+        'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css' => 'sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H',
+        'https://cdn.jsdelivr.net/npm/leaflet-control-geocoder@3.1.0/dist/Control.Geocoder.js' => 'sha384-56Bbnlt/FsDOQlJDtjy1uE2CygV0nSqLzXiFKMNCNReIN55KUxuvJVyoAg8fuVNZ',
+        'https://cdn.jsdelivr.net/npm/leaflet-control-geocoder@3.1.0/dist/Control.Geocoder.css' => 'sha384-vreRpx6017gtwUzcBhs2vpY19++6YuBl7eZVucKz1McFCXT2qTGrnVoXtheRZeSR',
+    ],
+
 ];

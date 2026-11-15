@@ -1,0 +1,26 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 5
+    # tests/ is analysed so the LeafletCrud trait's consumers are visible to PHPStan.
+    # config/ is excluded: it is merged into the app config, so env() there is intended.
+    paths:
+        - src
+        - database
+        - tests
+    tmpDir: .phpstan.cache
+
+    # PHPStan's view-string type rejects namespaced view names ('leafletjs::…'), so it
+    # reports the package's own view calls as errors. Each entry below is limited to one
+    # file and one error type, so nothing else is hidden.
+    ignoreErrors:
+        -
+            identifier: argument.type
+            path: src/View/Components/LeafletFrontend.php
+        -
+            identifier: argument.type
+            path: tests/Feature/LeafletFieldTest.php
+        -
+            identifier: method.impossibleType
+            path: tests/Feature/ServiceProviderTest.php

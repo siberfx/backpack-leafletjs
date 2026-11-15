@@ -44,6 +44,33 @@ class LeafletFrontendTest extends TestCase
     }
 
     #[Test]
+    public function it_fits_the_map_to_its_markers_when_no_center_point_is_given(): void
+    {
+        $this->blade(
+            '<x-leaflet-frontend :markers="$markers" />',
+            ['markers' => [[52.37, 4.89], [52.1, 5.1]]],
+        )->assertSee('fitBounds', false)
+            ->assertSee('maxZoom: 18', false);
+    }
+
+    #[Test]
+    public function it_centers_on_the_given_point_instead_of_fitting_markers(): void
+    {
+        $this->blade(
+            '<x-leaflet-frontend :center-point="[52.37, 4.89]" :markers="$markers" />',
+            ['markers' => [[52.37, 4.89]]],
+        )->assertDontSee('fitBounds', false);
+    }
+
+    #[Test]
+    public function it_loads_the_default_cdn_assets_with_subresource_integrity(): void
+    {
+        $this->blade('<x-leaflet-frontend />')
+            ->assertSee('integrity="sha384-', false)
+            ->assertSee('crossorigin="anonymous"', false);
+    }
+
+    #[Test]
     public function it_accepts_an_explicit_zoom_level(): void
     {
         $this->blade('<x-leaflet-frontend :zoom-level="5" />')

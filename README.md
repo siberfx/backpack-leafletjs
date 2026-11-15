@@ -70,6 +70,7 @@ CRUD::field([
         'zoom' => 14,
         'height' => '400px',
         'search' => true,              // show the address search box
+        'clearable' => true,           // show a "Clear location" button
         'marker_image' => null,        // optional custom marker icon URL
     ],
     'hint' => 'Click the map, drag the marker or search an address.',
@@ -133,7 +134,7 @@ Show a map on any Blade page:
 />
 ```
 
-Every attribute is optional. Without `center-point`, the map centres on `default_center` from the config. Without `zoom-level`, it uses `default_zoom`. Popup text is escaped. `tile-host` still works as an alias of `provider`.
+Every attribute is optional. Without `center-point`, the map fits all markers, or centres on `default_center` when there are none. Without `zoom-level`, it uses `default_zoom`. Popup text is escaped. `tile-host` still works as an alias of `provider`.
 
 ## Configuration
 
@@ -183,10 +184,12 @@ Published views go to `resources/views/vendor/leafletjs` and take precedence ove
 
 ```bash
 composer install
-composer test
+composer test       # PHPUnit on Orchestra Testbench
+composer analyse    # PHPStan with Larastan
+composer lint       # Pint style check (use `composer format` to fix)
 ```
 
-The suite runs on Orchestra Testbench. CI runs it on PHP 8.3, 8.4 and 8.5 against Laravel 12 and 13.
+CI runs the tests on PHP 8.3, 8.4 and 8.5 against Laravel 12 and 13.
 
 ## Changelog
 

@@ -32,6 +32,17 @@ class LeafletFieldTest extends TestCase
     }
 
     #[Test]
+    public function it_offers_a_clear_button_by_default_and_can_turn_it_off(): void
+    {
+        $this->assertStringContainsString('data-clearable="true"', $this->renderField(['name' => 'lat,lng']));
+
+        $this->assertStringContainsString(
+            'data-clearable="false"',
+            $this->renderField(['name' => 'lat,lng', 'options' => ['clearable' => false]]),
+        );
+    }
+
+    #[Test]
     public function it_targets_external_inputs_for_a_legacy_single_name(): void
     {
         $html = $this->renderField(['name' => 'leafletMapId']);

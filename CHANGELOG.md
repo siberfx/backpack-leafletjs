@@ -10,12 +10,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `<x-leaflet-frontend>` accepts a `provider` attribute. `tile-host` still works as an alias.
+- The `leaflet` field has a **Clear location** button (`'clearable' => true` by default; set `false` to hide it).
+- The `leaflet` field accepts typed coordinates in legacy mode: editing the external inputs moves the marker.
+- `<x-leaflet-frontend>` fits the map to its markers when no `center-point` is given.
+- Default CDN assets (Leaflet and the geocoder) load with **Subresource Integrity** hashes, configured in `backpack.leaflet.integrity`. Custom asset URLs are loaded without a hash.
+- `composer analyse` (PHPStan with Larastan, level 5) and `composer lint` / `composer format` (Pint) are available and run on the test sources too.
 - The migration fails with a clear message when `backpack.leaflet.table_name` does not point at an existing table.
-- Tests for the `LeafletCrud` trait, the migration, the frontend zoom and provider defaults, and tile provider fallbacks.
+- Tests for the `LeafletCrud` trait, the migration, the frontend zoom, provider and fit behaviour, and tile provider fallbacks.
 
 ### Changed
 
 - `<x-leaflet-frontend>` zoom defaults to `backpack.leaflet.default_zoom` (14) instead of a hardcoded 13.
+- An empty `leaflet` field no longer shows a marker at the default center. The marker appears once a location is set or the map is clicked.
 
 ### Removed
 
