@@ -5,7 +5,7 @@ All notable changes to `siberfx/backpack-leafletjs` are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [7.2.0] - 2026-11-16
 
 ### Added
 
@@ -110,6 +110,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Global Leaflet setup.
 
+[7.2.0]: https://github.com/siberfx/backpack-leafletjs/compare/7.1.0...7.2.0
 [7.1.0]: https://github.com/siberfx/backpack-leafletjs/compare/7.0.0...7.1.0
 [7.0.0]: https://github.com/siberfx/backpack-leafletjs/compare/6.1.3...7.0.0
 [6.1.3]: https://github.com/siberfx/backpack-leafletjs/compare/6.1.1...6.1.3
